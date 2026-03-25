@@ -2,8 +2,8 @@
     "people":[
         {
         "id": 1,
-        "name": "John Doe",
-        "age": 30,
+        "firstname": "John",
+        "lastname": "Doe",
         "email":"murilo@email.com"
     }
   ]
