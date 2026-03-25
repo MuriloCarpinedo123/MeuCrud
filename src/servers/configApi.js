@@ -1,1 +1,1 @@
-export const API_URL = "http://localhost:3000/people";
+export const API_URL = "https://busy-bees-grin.loca.lt";
