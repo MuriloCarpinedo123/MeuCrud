@@ -1,55 +1,49 @@
-import { API_URL } from "../configApi";
-
+import { API_URL } from "./configApi";
 /*
-Função para buscar todas as pessoas
+export async function getPeople() {
+    const response = await fetch(`${API_URL}/people`);
+    const data = await response.json();
+    return data;
+}
 */
 export async function getPeople() {
-
-  // realiza requisição GET
-  const response = await fetch(`${API_URL}/people`);
-
-  // converte resposta para JSON
-  const data = await response.json();
-
-  // retorna lista
-  return data;
+    try {
+        const response = await fetch(`${API_URL}/people`);
+        const text = await response.text(); // Lê como texto puro primeiro
+        console.log("Resposta do Servidor:", text); // Veja isso no seu terminal/Metro
+        
+        return JSON.parse(text); 
+    } catch (error) {
+        console.error("Erro na busca:", error);
+        return [];
+    }
 }
-
-/*
-Função para criar nova pessoa
-*/
-export async function createPerson(person) {
-  const response = await fetch(`${API_URL}/people`, {
-    method: "POST", // método HTTP
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(person) // transforma objeto em JSON
-  });
-
-  return response.json();
-}
- /*
- Função para atualizar pessoa
- */
- export async function updatePerson(id, person) {
-
-    const response = await fetch(`${API_URL}/people/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(person)
+export async function createPerson(person){
+    const response = await fetch(`${API_URL}/people`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(person)
     });
- 
+
     return response.json();
-  }
- 
-  /*
-  Função para deletar pessoa
-  */
-  export async function deletePerson(id) {
-    await fetch(`${API_URL}/people/${id}`, {
-      method: "DELETE"
+}
+
+export async function updatePerson(id, person){
+    const response = await fetch(`${API_URL}/people/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(person)
     });
-  }
+
+    return response.json();
+}
+
+export async function deletePerson(id) {
+    await fetch(`${API_URL}/people/${id}`, {
+        method: "DELETE"
+    });
+}
